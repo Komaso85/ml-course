@@ -171,24 +171,10 @@ class KNearestNeighbor:
             # label.                                                                #
             #########################################################################
             # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
-            count_label = {}
-            for i in range(k):
-              if closest_y[i] in count_label:
-                count_label[closest_y[i]] += 1
-              else:
-                count_label[closest_y[i]] = 1
+            values, counts = np.unique(closest_y, return_counts=True)
 
-            max_count = max(count_label.values())
-            max_labels = []
-            for key, value in count_label.items():
-              if value == max_count:
-                max_labels.append(key)
-
-            if len(max_labels)>1:
-              y_pred[i] = min(max_labels)
-            else:
-              y_pred[i] = max_labels[0]
-
+            ind = np.argmax(counts)
+            y_pred[i] = values[ind]
             # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
         return y_pred
